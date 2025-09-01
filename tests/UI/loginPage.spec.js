@@ -51,8 +51,7 @@ test('performance_glitch_user login test', async ({ page }) => {
   const endTime = Date.now();  
   const loginDuration = endTime - startTime;  
  
-  expect(loginDuration).toBeGreaterThan(2000); // Should take more than 2 seconds
-  
+  expect(loginDuration).toBeGreaterThan(2000); // Should take more than 2 seconds  
   console.log(`Performance glitch user login took: ${loginDuration}ms`);
 });
 

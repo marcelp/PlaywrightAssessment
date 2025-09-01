@@ -38,7 +38,7 @@ export default defineConfig({
   // Global test settings
   use: {
     // Browser context options
-    headless: process.env.CI ? true : false,
+    headless: process.env.CI ? true : true,
     viewport: { width: 1280, height: 720 },
     
     // Capture screenshots on failure
