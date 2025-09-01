@@ -1,5 +1,5 @@
 import {test, expect} from '@playwright/test'
-import LoginPage from '../Pages/login.page';
+import LoginPage from '../../Pages/login.page';
 
 test('standard_user login test', async ({ page }) => {
   const loginPage = new LoginPage(page);
@@ -61,6 +61,11 @@ test('error_user login test', async ({ page }) => {
   await loginPage.goToLogin();
   await loginPage.signInWithErrorUser();
 
-  // Assert error message is displayed for error user
-  await expect(page.locator('h3[data-test="error"]')).toContainText('Epic sadface: Sorry, this user has been locked out.');
+  // Click on the Add to Chart button and ensure that button changes to remove
+  await page.locator('button[data-test="add-to-cart-sauce-labs-backpack"]').click();
+  await expect(page.locator('xpath=//*[@id="remove-sauce-labs-backpack"]')).toContainText('Remove');
+
+  //Now click on the remove button, because this is a negative test, the button would stay the same and not remove the item from the chart nor change the button to add to chart
+  await page.locator('xpath=//*[@id="remove-sauce-labs-backpack"]').click();
+  await expect(page.locator('xpath=//*[@id="remove-sauce-labs-backpack"]')).toContainText('Remove');
 });
