@@ -35,6 +35,14 @@ export default class LoginPage {
 
      async signInWithProblemUser() {
         await this.performLogin('problem_user');
-    }  
+    }
+    
+    async signInWithPerformanceGlitchUser() {
+        await this.performLogin('performance_glitch_user');
+    }
+
+       async signInWithErrorUser() {
+        await this.performLogin('error_user');
+    }
 
 }

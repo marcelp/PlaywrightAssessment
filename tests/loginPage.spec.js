@@ -7,7 +7,7 @@ test('standard_user login test', async ({ page }) => {
   await loginPage.signInWithStandardUser();
 
   // Assert successful login by checking for Products title
-  await expect(page.locator('span[data-test="title"]')).toBeVisible();  
+  await expect(page.locator('span[data-test="title"]')).toContainText('Products');
 }); 
 
 test('locked_out_user login test', async ({ page }) => {
@@ -34,6 +34,33 @@ test('problem_user login test', async ({ page }) => {
   // Verify each image src contains the dog image
   for (let i = 0; i < imageCount; i++) {
     const imageSrc = await productImages.nth(i).getAttribute('src');
-    expect(imageSrc).toContain('sl-404.168b1cce.jpg'); // This is the dog image filename
+    expect(imageSrc).toContain('sl-404.168b1cce.jpg'); // This is the jpg image filename
   }
+});
+
+test('performance_glitch_user login test', async ({ page }) => {
+  const loginPage = new LoginPage(page);
+  await loginPage.goToLogin();
+  
+  // Measure the time it takes to login
+  const startTime = Date.now();
+  await loginPage.signInWithPerformanceGlitchUser();
+  
+  // Wait for the products page to load to confirm that login was successful
+  await expect(page.locator('span[data-test="title"]')).toContainText('Products');
+  const endTime = Date.now();  
+  const loginDuration = endTime - startTime;  
+ 
+  expect(loginDuration).toBeGreaterThan(2000); // Should take more than 2 seconds
+  
+  console.log(`Performance glitch user login took: ${loginDuration}ms`);
+});
+
+test('error_user login test', async ({ page }) => {
+  const loginPage = new LoginPage(page);
+  await loginPage.goToLogin();
+  await loginPage.signInWithErrorUser();
+
+  // Assert error message is displayed for error user
+  await expect(page.locator('h3[data-test="error"]')).toContainText('Epic sadface: Sorry, this user has been locked out.');
 });
