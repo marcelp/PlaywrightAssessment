@@ -5,6 +5,7 @@ export default class LoginPage {
     static PASSWORD = 'secret_sauce';
 
     #page;
+    
     constructor(page) {
         this.#page = page;
     }
@@ -18,22 +19,22 @@ export default class LoginPage {
         expect(await this.#page.title()).toBe('Swag Labs');
     }
 
-    async setPassword(password) {
-        await this.inputPassword.fill(password);
-    }
-
-    async performLogin(username, password) {
+    async performLogin(username, password = LoginPage.PASSWORD) {
         await this.inputLogin.fill(username);
         await this.inputPassword.fill(password);
         await this.buttonSubmit.click();
     }
 
     async signInWithStandardUser() {
-        await this.performLogin('standard_user', LoginPage.PASSWORD);
+        await this.performLogin('standard_user');
     }
 
      async signInWithLockedOutUser() {
-        await this.performLogin('locked_out_user', LoginPage.PASSWORD);
-    }   
+        await this.performLogin('locked_out_user');
+    }
+
+     async signInWithProblemUser() {
+        await this.performLogin('problem_user');
+    }  
 
 }
