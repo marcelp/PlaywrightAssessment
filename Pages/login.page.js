@@ -30,6 +30,10 @@ export default class LoginPage {
 
     async signInWithStandardUser() {
         await this.performLogin('standard_user', LoginPage.PASSWORD);
+    }
+
+     async signInWithLockedOutUser() {
+        await this.performLogin('locked_out_user', LoginPage.PASSWORD);
     }   
 
 }
