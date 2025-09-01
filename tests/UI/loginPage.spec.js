@@ -65,7 +65,20 @@ test('error_user login test', async ({ page }) => {
   await page.locator('button[data-test="add-to-cart-sauce-labs-backpack"]').click();
   await expect(page.locator('xpath=//*[@id="remove-sauce-labs-backpack"]')).toContainText('Remove');
 
-  //Now click on the remove button, because this is a negative test, the button would stay the same and not remove the item from the chart nor change the button to add to chart
+  // Now click on the remove button, because this is a negative test, the button would stay the same and not remove the item from the chart nor change the button to add to chart
   await page.locator('xpath=//*[@id="remove-sauce-labs-backpack"]').click();
   await expect(page.locator('xpath=//*[@id="remove-sauce-labs-backpack"]')).toContainText('Remove');
+});
+
+test('visual_user login test', async ({ page }) => {
+  const loginPage = new LoginPage(page);
+  await loginPage.goToLogin();
+  await loginPage.signInWithVisualUser();
+
+  // Assert successful login by checking for Products title
+  await expect(page.locator('span[data-test="title"]')).toContainText('Products');
+
+  // Get the src attribute of the specific image and assert it contains the dog image
+  const imageSrc = await page.locator('xpath=//*[@id="item_4_img_link"]/img').getAttribute('src');
+  expect(imageSrc).toContain('sl-404.168b1cce.jpg'); // This is the dog image filename
 });
