@@ -81,4 +81,7 @@ test('visual_user login test', async ({ page }) => {
   // Get the src attribute of the specific image and assert it contains the dog image
   const imageSrc = await page.locator('xpath=//*[@id="item_4_img_link"]/img').getAttribute('src');
   expect(imageSrc).toContain('sl-404.168b1cce.jpg'); // This is the dog image filename
+
+  // Find out how to get cart position / coordinates
+
 });
