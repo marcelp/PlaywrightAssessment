@@ -7,7 +7,7 @@ test('standard_user login test', async ({ page }) => {
   await loginPage.signInWithStandardUser();
 
   // Assert successful login by checking for Products title
-  await expect(page.locator('span[data-test="title"]')).toContainText('Products');
+  await expect(page.locator('span[data-test="title"]')).toHaveText('Products');
 }); 
 
 test('locked_out_user login test', async ({ page }) => {
@@ -47,7 +47,7 @@ test('performance_glitch_user login test', async ({ page }) => {
   await loginPage.signInWithPerformanceGlitchUser();
   
   // Wait for the products page to load to confirm that login was successful
-  await expect(page.locator('span[data-test="title"]')).toContainText('Products');
+  await expect(page.locator('span[data-test="title"]')).toHaveText('Products');
   const endTime = Date.now();  
   const loginDuration = endTime - startTime;  
  
@@ -76,7 +76,7 @@ test('visual_user login test', async ({ page }) => {
   await loginPage.signInWithVisualUser();
 
   // Assert successful login by checking for Products title
-  await expect(page.locator('span[data-test="title"]')).toContainText('Products');
+  await expect(page.locator('span[data-test="title"]')).toHaveText('Products');
 
   // Get the src attribute of the specific image and assert it contains the dog image
   const imageSrc = await page.locator('xpath=//*[@id="item_4_img_link"]/img').getAttribute('src');
