@@ -1,20 +1,16 @@
 import {test, expect } from "@playwright/test";
 const RequestPacketData = require("../../API/data/RequestPacketData.js");
+const BookingApiHelper = require("../../API/helpers/bookingApiHelper.js");
 
 test('Get auth token', async ({request}) => {
-    const response = await request.post('https://restful-booker.herokuapp.com/auth', {
-        data: {
-            username: "admin",
-            password: "password123"
-        }
-    });
+    const token = await BookingApiHelper.getAuthToken(request);
+    expect(token).not.toBeNull();
 
-    const responseData = await response.json();
-    const token = responseData.token;
-
-    // Assert
-    expect(response.status()).toBe(200);
-    expect(token).toBeDefined();
+    // const { response, token } = await BookingApiHelper.getAuthToken(request);
+    // con
+    // // Assert
+    // //expect(response.status()).toBe(200);
+    // expect(token).toBeDefined();
 });
 
 test('Get all bookings', async ({request}) => {
@@ -48,6 +44,9 @@ test('Create a new booking', async ({request}) => {
 });
 
 test('Update a booking', async ({request}) => {
+    //Get a token by calling the getauthtoken method
+    const token = await BookingApiHelper.getAuthToken(request);
+
     //Create a booking and store the bookingId in a variable
     const createBookingData = RequestPacketData.createDefaultBookingData();
     
@@ -68,7 +67,7 @@ test('Update a booking', async ({request}) => {
         data: updateBookingData,
         headers: {
             accept: 'application/json',
-            Cookie: 'token=6b149390e60bd6b'
+            Cookie: `token=${token}`
         }
     });
 
@@ -85,6 +84,9 @@ test('Update a booking', async ({request}) => {
 });
 
 test('Delete a booking', async ({request}) => {
+    //Get a token by calling the getauthtoken method    
+    const token = await BookingApiHelper.getAuthToken(request);
+    
     //Create a booking and store the bookingId in a variable
     const createBookingData = RequestPacketData.createDefaultBookingData();
     
@@ -102,7 +104,7 @@ test('Delete a booking', async ({request}) => {
     const deleteBookingresponse = await request.delete(`https://restful-booker.herokuapp.com/booking/${bookingId}`, {
         headers: {
             accept: 'application/json',
-            Cookie: 'token=82e60388749a064'
+            Cookie: `token=${token}`
         }
     });
 
