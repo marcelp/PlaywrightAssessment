@@ -25,8 +25,9 @@ test('Get all items in Inventory store', async ({ page }) => {
     const inventoryPage = new InventoryPage(page);
     await inventoryPage.verifyItemsInInventory();
     
-    const items = await inventoryPage.getInventoryItems();
+    const items = await inventoryPage.getInventoryItems();    
     expect(items).toEqual(InventoryTestData.getExpectedItemNames());
+    console.log('Test is expected to fail as the item names are not correct on the UI.');
 });
 
 test('Get all item descriptions in Inventory store', async ({ page }) => {
@@ -37,8 +38,9 @@ test('Get all item descriptions in Inventory store', async ({ page }) => {
     const inventoryPage = new InventoryPage(page);
     await inventoryPage.verifyItemsInInventory();
 
-    const descriptions = await inventoryPage.getInventoryDescriptionForItems();
+    const descriptions = await inventoryPage.getInventoryDescriptionForItems();    
     expect(descriptions).toEqual(InventoryTestData.getExpectedItemDescriptions());
+    console.log('Test is expected to fail as the item descriptions are not correct on the UI.');
 });
 
 test.describe('Test sort order of all items by A-Z, Z-A, Price (Low to High), Price (High to Low)', () => {
