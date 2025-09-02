@@ -1,7 +1,7 @@
 /**
  * Helper class for Booking API operations
  */
-class BookingApiHelper {
+ class BookingApiHelper {
     
     /**
      * Base URL for the booking API
@@ -26,5 +26,4 @@ class BookingApiHelper {
         return token;
     }    
 }
-
-module.exports = BookingApiHelper;
+export default BookingApiHelper;
