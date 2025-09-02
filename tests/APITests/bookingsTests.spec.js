@@ -1,5 +1,21 @@
 import {test, expect } from "@playwright/test";
 
+test('Get auth token', async ({request}) => {
+    const response = await request.post('https://restful-booker.herokuapp.com/auth', {
+        data: {
+            username: "admin",
+            password: "password123"
+        }
+    });
+
+    const responseData = await response.json();
+    const token = responseData.token;
+
+    // Assert
+    expect(response.status()).toBe(200);
+    expect(token).toBeDefined();
+});
+
 test('Get all bookings', async ({request}) => {
     const response = await request.get('https://restful-booker.herokuapp.com/booking');    
 
