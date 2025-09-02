@@ -21,11 +21,7 @@ class BookingApiHelper {
         }
 
         const responseData = await response.json();
-        const token = responseData.token;
-
-        if (!token) {
-            throw new Error('Token not found in authentication response');
-        }
+        const token = responseData.token;        
 
         return token;
     }    
