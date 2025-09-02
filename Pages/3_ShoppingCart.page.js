@@ -5,5 +5,10 @@ export default class ShoppingCartPage {
 
     constructor(page) {
         this.#page = page;
-    }   
+    }
+    
+    async clickShoppingCartPage() {
+        await this.#page.click('[data-test="shopping-cart-link"]');        
+    }
+
 }
