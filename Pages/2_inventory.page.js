@@ -20,8 +20,7 @@ export default class InventoryPage {
             await expect(item).toBeVisible();
         }
     }
-
-    // Method to get inventory items count for test assertions
+    
     async getInventoryItemsCount() {
         const inventoryItems = this.#page.locator('.inventory_item');
         return await inventoryItems.count();
@@ -60,5 +59,20 @@ export default class InventoryPage {
         await this.#page.locator('.product_sort_container').selectOption('hilo');
         // Wait for the sorting to complete
         await this.#page.waitForTimeout(500);
+    }
+
+    async clickOnAddToCartButton(itemName) {
+        const item = this.#page.locator(`.inventory_item:has-text("${itemName}")`);
+        await item.locator('button').click();
+    }  
+
+    async getCartBadgeCount() {
+        const cartBadge = this.#page.locator('.shopping_cart_badge');
+        return await cartBadge.textContent();
+    }
+
+    async isCartBadgeVisible() {
+        const cartBadge = this.#page.locator('.shopping_cart_badge');
+        return await cartBadge.isVisible();
     }
 }

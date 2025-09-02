@@ -111,3 +111,14 @@ test.describe('Test sort order of all items by A-Z, Z-A, Price (Low to High), Pr
         ]);
     });
 });
+
+test('Click on Add to Cart Button', async ({ page }) => {
+    const inventoryPage = new InventoryPage(page);
+    await inventoryPage.clickOnAddToCartButton('Sauce Labs Backpack');
+    await inventoryPage.clickOnAddToCartButton('Sauce Labs Fleece Jacket');
+    await inventoryPage.clickOnAddToCartButton('Sauce Labs Onesie');
+   
+    // Verify that the cart badge is visible and shows "2"
+    expect(await inventoryPage.isCartBadgeVisible()).toBe(true);
+    expect(await inventoryPage.getCartBadgeCount()).toBe('3');
+});
