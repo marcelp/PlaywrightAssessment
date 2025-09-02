@@ -133,7 +133,7 @@ test('Delete a booking', async ({request}) => {
     const deleteBookingresponse = await request.delete(`https://restful-booker.herokuapp.com/booking/${bookingId}`, {
         headers: {
             accept: 'application/json',
-            Cookie: 'token=6b149390e60bd6b'
+            Cookie: 'token=82e60388749a064'
         }
     });
 
