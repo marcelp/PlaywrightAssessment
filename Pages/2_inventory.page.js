@@ -36,4 +36,34 @@ export default class InventoryPage {
         const inventoryItemDescriptions = this.#page.locator('.inventory_item_desc');
         return await inventoryItemDescriptions.allTextContents();
     }
+
+    async getInventoryItemPrices() {
+        const inventoryItemPrices = this.#page.locator('[data-test="inventory-item-price"]');
+        return await inventoryItemPrices.allTextContents();
+    }
+
+    async getInventoryItemPricesAsNumbers() {
+        const priceTexts = await this.getInventoryItemPrices();
+        return priceTexts.map(price => parseFloat(price.replace('$', '')));
+    }
+
+    async sortItemsByNameAscending() {
+        await this.#page.locator('.product_sort_container').selectOption('az');
+    }
+
+    async sortItemsByNameDescending() {
+        await this.#page.locator('.product_sort_container').selectOption('za');
+    }
+
+    async sortItemsByPriceAscending() {
+        await this.#page.locator('.product_sort_container').selectOption('lohi');
+        // Wait for the sorting to complete
+        await this.#page.waitForTimeout(500);
+    }
+
+    async sortItemsByPriceDescending() {
+        await this.#page.locator('.product_sort_container').selectOption('hilo');
+        // Wait for the sorting to complete
+        await this.#page.waitForTimeout(500);
+    }
 }

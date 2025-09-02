@@ -17,7 +17,7 @@ test('verify number of items in inventory', async ({ page }) => {
 
 test('Get all items in Inventory store', async ({ page }) => {
     /*
-        Test is expected to fail as the description is not correct. In order to get a false positive test change the description of the last element to
+        Test is expected to fail as the description is not correct. In order to get a false positive, change the description of the last element to
         'Test.allTheThings() T-Shirt (Red)',
     */
 
@@ -31,8 +31,7 @@ test('Get all items in Inventory store', async ({ page }) => {
         'Sauce Labs Bolt T-Shirt',
         'Sauce Labs Fleece Jacket',
         'Sauce Labs Onesie',            
-        'Sauce Labs T-Shirt (Red)'
-        //'Test.allTheThings() T-Shirt (Red)'
+        'Sauce Labs T-Shirt (Red)'        
     ]);
 });
 
@@ -45,8 +44,7 @@ test('Get all item descriptions in Inventory store', async ({ page }) => {
     await inventoryPage.verifyItemsInInventory();
 
     const descriptions = await inventoryPage.getInventoryDescriptionForItems();
-    expect(descriptions).toEqual([
-        //carry.allTheThings() with the sleek, streamlined Sly Pack that melds uncompromising style with unequaled laptop and tablet protection.
+    expect(descriptions).toEqual([        
         'This is a backpack with the sleek, streamlined Sly Pack that melds uncompromising style with unequaled laptop and tablet protection.',
         "A red light isn't the desired state in testing but it sure helps when riding your bike at night. Water-resistant with 3 lighting modes, 1 AAA battery included.",
         "Get your testing superhero on with the Sauce Labs bolt T-shirt. From American Apparel, 100% ringspun combed cotton, heather gray with red bolt.",
@@ -54,4 +52,62 @@ test('Get all item descriptions in Inventory store', async ({ page }) => {
         "Rib snap infant onesie for the junior automation engineer in development. Reinforced 3-snap bottom closure, two-needle hemmed sleeved and bottom won't unravel.",
         "This classic Sauce Labs t-shirt is perfect to wear when cozying up to your keyboard to automate a few tests. Super-soft and comfy ringspun combed cotton."
     ]);
+});
+
+test.describe('Test sort order', () => {
+    test('Sort items by name (A to Z)', async ({ page }) => {
+        const inventoryPage = new InventoryPage(page);
+        await inventoryPage.sortItemsByNameAscending();
+        const sortedItems = await inventoryPage.getInventoryItems();
+        expect(sortedItems).toEqual([
+            'Sauce Labs Backpack',
+            'Sauce Labs Bike Light',
+            'Sauce Labs Bolt T-Shirt',
+            'Sauce Labs Fleece Jacket',
+            'Sauce Labs Onesie',
+            'Test.allTheThings() T-Shirt (Red)'
+        ]);
+    });
+
+    test('Sort items by name (Z to A)', async ({ page }) => {
+        const inventoryPage = new InventoryPage(page);
+        await inventoryPage.sortItemsByNameDescending();
+        const sortedItems = await inventoryPage.getInventoryItems();
+        expect(sortedItems).toEqual([
+            'Test.allTheThings() T-Shirt (Red)',
+            'Sauce Labs Onesie',
+            'Sauce Labs Fleece Jacket',
+            'Sauce Labs Bolt T-Shirt',
+            'Sauce Labs Bike Light',
+            'Sauce Labs Backpack'
+        ]);
+    });
+
+    test('Sort items by price (low to high)', async ({ page }) => {
+        const inventoryPage = new InventoryPage(page);
+        await inventoryPage.sortItemsByPriceAscending();
+        const sortedPrices = await inventoryPage.getInventoryItemPrices();
+        expect(sortedPrices).toEqual([
+            '$7.99',
+            '$9.99',
+            '$15.99',
+            '$15.99',
+            '$29.99',
+            '$49.99'
+        ]);
+    });
+
+    test('Sort items by price (high to low)', async ({ page }) => {
+        const inventoryPage = new InventoryPage(page);
+        await inventoryPage.sortItemsByPriceDescending();
+        const sortedPrices = await inventoryPage.getInventoryItemPrices();
+        expect(sortedPrices).toEqual([
+            '$49.99',
+            '$29.99',
+            '$15.99',
+            '$15.99',
+            '$9.99',
+            '$7.99'
+        ]);
+    });
 });
