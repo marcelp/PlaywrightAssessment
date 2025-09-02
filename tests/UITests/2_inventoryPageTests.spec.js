@@ -54,7 +54,7 @@ test('Get all item descriptions in Inventory store', async ({ page }) => {
     ]);
 });
 
-test.describe('Test sort order', () => {
+test.describe('Test sort order of all items by A-Z, Z-A, Price (Low to High), Price (High to Low)', () => {
     test('Sort items by name (A to Z)', async ({ page }) => {
         const inventoryPage = new InventoryPage(page);
         await inventoryPage.sortItemsByNameAscending();
