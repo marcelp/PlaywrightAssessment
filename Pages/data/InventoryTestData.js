@@ -13,7 +13,7 @@ class InventoryTestData {
             'Sauce Labs Bolt T-Shirt',
             'Sauce Labs Fleece Jacket',
             'Sauce Labs Onesie',
-            'Sauce Labs T-Shirt (Red)'
+            'Test.allTheThings() T-Shirt (Red)'
         ];
     }
 
@@ -23,6 +23,17 @@ class InventoryTestData {
     static getExpectedItemNamesDescending() {
         return [
             'Test.allTheThings() T-Shirt (Red)',
+            'Sauce Labs Onesie',
+            'Sauce Labs Fleece Jacket',
+            'Sauce Labs Bolt T-Shirt',
+            'Sauce Labs Bike Light',
+            'Sauce Labs Backpack'
+        ];
+    }
+
+    static getExpectedItemNames() {
+        return [
+            'Sauce Labs T-Shirt (Red)',
             'Sauce Labs Onesie',
             'Sauce Labs Fleece Jacket',
             'Sauce Labs Bolt T-Shirt',

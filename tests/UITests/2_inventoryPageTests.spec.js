@@ -26,7 +26,7 @@ test('Get all items in Inventory store', async ({ page }) => {
     await inventoryPage.verifyItemsInInventory();
     
     const items = await inventoryPage.getInventoryItems();
-    expect(items).toEqual(InventoryTestData.getExpectedItemNamesAscending());
+    expect(items).toEqual(InventoryTestData.getExpectedItemNames());
 });
 
 test('Get all item descriptions in Inventory store', async ({ page }) => {
