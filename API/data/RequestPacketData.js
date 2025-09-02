@@ -55,4 +55,4 @@ class RequestPacketData {
     }
 }
 
-module.exports = RequestPacketData;
+export default RequestPacketData;

@@ -1,6 +1,6 @@
 import {test, expect } from "@playwright/test";
-const RequestPacketData = require("../../API/data/RequestPacketData.js");
-const BookingApiHelper = require("../../API/helpers/bookingApiHelper.js");
+import RequestPacketData from "../../API/data/RequestPacketData.js";
+import BookingApiHelper from "../../API/helpers/bookingApiHelper.js";
 
 test('Get all bookings', async ({request}) => {
     const response = await request.get(BookingApiHelper.BASE_URL + '/booking');
