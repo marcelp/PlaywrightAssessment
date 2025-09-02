@@ -112,13 +112,33 @@ test.describe('Test sort order of all items by A-Z, Z-A, Price (Low to High), Pr
     });
 });
 
-test('Click on Add to Cart Button', async ({ page }) => {
+test('Click on Add to Cart Button and ensure CartBadge number is incremented', async ({ page }) => {
+    const inventoryPage = new InventoryPage(page);
+    await inventoryPage.clickOnAddToCartButton('Sauce Labs Backpack');
+    await inventoryPage.clickOnAddToCartButton('Sauce Labs Fleece Jacket');
+
+    expect(await inventoryPage.getCartBadgeCount()).toBe('2');
+
+    await inventoryPage.clickOnAddToCartButton('Sauce Labs Onesie');
+   
+    // Verify that the cart badge is visible and shows "3"
+    expect(await inventoryPage.isCartBadgeVisible()).toBe(true);
+    expect(await inventoryPage.getCartBadgeCount()).toBe('3');
+});
+
+test('Click on Remove from Cart Button and ensure CartBadge number is decremented', async ({ page }) => {
     const inventoryPage = new InventoryPage(page);
     await inventoryPage.clickOnAddToCartButton('Sauce Labs Backpack');
     await inventoryPage.clickOnAddToCartButton('Sauce Labs Fleece Jacket');
     await inventoryPage.clickOnAddToCartButton('Sauce Labs Onesie');
-   
-    // Verify that the cart badge is visible and shows "2"
+
+    // Verify that the cart badge is visible and shows "3"
     expect(await inventoryPage.isCartBadgeVisible()).toBe(true);
     expect(await inventoryPage.getCartBadgeCount()).toBe('3');
+
+    // Remove an item from the cart
+    await inventoryPage.clickOnRemoveButton('Sauce Labs Backpack');
+
+    // Verify that the cart badge is updated    
+    expect(await inventoryPage.getCartBadgeCount()).toBe('2');
 });
