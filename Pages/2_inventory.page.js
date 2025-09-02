@@ -40,12 +40,7 @@ export default class InventoryPage {
     async getInventoryItemPrices() {
         const inventoryItemPrices = this.#page.locator('[data-test="inventory-item-price"]');
         return await inventoryItemPrices.allTextContents();
-    }
-
-    async getInventoryItemPricesAsNumbers() {
-        const priceTexts = await this.getInventoryItemPrices();
-        return priceTexts.map(price => parseFloat(price.replace('$', '')));
-    }
+    }  
 
     async sortItemsByNameAscending() {
         await this.#page.locator('.product_sort_container').selectOption('az');
