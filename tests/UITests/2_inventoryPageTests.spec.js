@@ -30,17 +30,16 @@ test('Get all items in Inventory store', async ({ page }) => {
         'Sauce Labs Bike Light',
         'Sauce Labs Bolt T-Shirt',
         'Sauce Labs Fleece Jacket',
-        'Sauce Labs Onesie',    
-        //'Test.allTheThings() T-Shirt (Red)'
+        'Sauce Labs Onesie',            
         'Sauce Labs T-Shirt (Red)'
+        //'Test.allTheThings() T-Shirt (Red)'
     ]);
 });
 
 test('Get all item descriptions in Inventory store', async ({ page }) => {
     /*
-        Test is expected to fail as the description is not correct. In order to get a false positive, run the test with the following description:
-        'carry.allTheThings() with the sleek, streamlined Sly Pack that melds uncompromising style with unequaled laptop and tablet protection.' instead of
-        'This is a backpack with the sleek, streamlined Sly Pack that melds uncompromising style with unequaled laptop and tablet protection.'
+        Test is expected to fail as the description is not correct. In order to get a false positive, change the description of the first element to
+        'carry.allTheThings() with the sleek, streamlined Sly Pack that melds uncompromising style with unequaled laptop and tablet protection.'
     */
     const inventoryPage = new InventoryPage(page);
     await inventoryPage.verifyItemsInInventory();
