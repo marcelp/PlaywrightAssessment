@@ -48,5 +48,4 @@ export default class LoginPage {
     async signInWithVisualUser() {
         await this.performLogin('visual_user');
     }
-
 }
