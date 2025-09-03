@@ -26,6 +26,22 @@ test.beforeEach(async ({ page }) => {
     await shoppingCartPage.clickCheckout();
 });
 
+test('Complete order', async ({ page }) => {
+    const shoppingCartCheckoutPage = new CheckoutPage(page);
+
+    await shoppingCartCheckoutPage.fillFirstName('John');
+    await shoppingCartCheckoutPage.fillLastName('Doe');
+    await shoppingCartCheckoutPage.fillPostalCode('12345');
+    await shoppingCartCheckoutPage.clickContinue();
+
+    // Assert on the checkout overview
+    await expect(page.locator('[data-test="title"]')).toHaveText('Checkout: Overview');
+    await shoppingCartCheckoutPage.clickFinish();
+
+    // Assert on the order confirmation
+    await expect(page.locator('[data-test="title"]')).toHaveText('Checkout: Complete!');
+});
+
 test('Ensure that you are redirected back to the checkout page when clicking on the cancel button', async ({ page }) => {
     const shoppingCartCheckoutPage = new CheckoutPage(page);
     await shoppingCartCheckoutPage.clickCancel();

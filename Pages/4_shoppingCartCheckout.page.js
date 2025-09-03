@@ -22,4 +22,8 @@ export default class CheckoutPage {
     async fillPostalCode(code) {
         await this.page.fill('[data-test="postalCode"]', code);
     }
+
+    async clickFinish() {
+        await this.page.click('[data-test="finish"]');
+    }
 }
