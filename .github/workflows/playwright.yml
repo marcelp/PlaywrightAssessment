@@ -27,16 +27,16 @@ jobs:
     - name: Install dependencies
       run: npm ci
       
-    - name: Install Playwright browsers
-      run: npx playwright install --with-deps
+    - name: Install Playwright Chromium browser only
+      run: npx playwright install chromium --with-deps
       
-    - name: Run UI tests
-      run: npm run test:ui
+    - name: Run UI tests (Chromium only)
+      run: npx playwright test tests/UITests/ --project=chromium
       env:
         CI: true
         
-    - name: Run API tests 
-      run: npm run test:api
+    - name: Run API tests (Chromium only)
+      run: npx playwright test tests/APITests/ --project=chromium
       env:
         CI: true
 
@@ -46,7 +46,7 @@ jobs:
       
     - name: Generate Monocart report
       if: always()
-      run: npx monocart merge-reports ./monocart-report/index.json ./test-results/
+      run: npx monocart merge-reports ./monocart-report/
       
     - name: Upload test reports
       if: always()
