@@ -64,7 +64,14 @@ export default class InventoryPage {
     async clickOnAddToCartButton(itemName) {
         const item = this.#page.locator(`.inventory_item:has-text("${itemName}")`);
         await item.locator('button').click();
-    }  
+    }
+
+    async clickOnRemoveButton(itemName) {
+        // Convert item name to kebab-case for data-test attribute
+        const kebabCaseName = itemName.toLowerCase().replace(/\s+/g, '-');
+        const removeButton = this.#page.locator(`[data-test="remove-${kebabCaseName}"]`);
+        await removeButton.click();
+    }
 
     async getCartBadgeCount() {
         const cartBadge = this.#page.locator('.shopping_cart_badge');
