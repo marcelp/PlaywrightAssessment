@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
-import LoginPage from "../../Pages/1_login.page";
-import InventoryPage from "../../Pages/2_inventory.page";
-import ShoppingCartPage from "../../Pages/3_ShoppingCart.page";
+import LoginPage from "../../Pages/1_login.page.js";
+import InventoryPage from "../../Pages/2_inventory.page.js";
+import ShoppingCartPage from "../../Pages/3_ShoppingCart.page.js";
 import InventoryTestData from "../../Pages/data/InventoryTestData.js";
 
 
