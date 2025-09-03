@@ -24,4 +24,12 @@ export default class ShoppingCartPage {
         await removeButton.click();
     }
 
+    async clickContinueShopping() {
+        await this.#page.click('[data-test="continue-shopping"]');
+    }
+
+    async clickCheckout() {
+        await this.#page.click('[data-test="checkout"]');
+    }
+
 }
