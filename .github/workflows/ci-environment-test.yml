@@ -29,8 +29,8 @@ jobs:
       
     - name: List test files
       run: |
-        dir tests\UITests /b
-        dir tests\APITests /b
+        Get-ChildItem -Path "tests/UITests" | ForEach-Object { $_.Name }
+        Get-ChildItem -Path "tests/APITests" | ForEach-Object { $_.Name }
         
     - name: Run Playwright tests (Chromium only)
       run: npx playwright test --project=chromium
