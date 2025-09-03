@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  playwright:
+    image: mcr.microsoft.com/playwright:v1.40.0-focal
+    environment:
+      # Add any environment variables your tests need
+      - CI=true
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: >
+      bash -c "npm ci && 
+               npx playwright install --with-deps && 
+               npm run test && 
+               chmod -R 777 ./playwright-report ./test-results ./monocart-report"
+    # For interactive mode:
+    # command: bash
+    # stdin_open: true
+    # tty: true

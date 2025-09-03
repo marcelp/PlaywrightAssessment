@@ -10,7 +10,9 @@
     "test:headed": "npx playwright test --headed",
     "test:debug": "npx playwright test --debug",
     "show-report": "npx monocart show-report monocart-report/index.html",
-    "test:report": "npm run test && npm run show-report"
+    "test:report": "npm run test && npm run show-report",
+    "verify:cicd": "node verify-cicd.js",
+    "docker:test": "docker-compose up"
   },
   "keywords": [],
   "author": "",

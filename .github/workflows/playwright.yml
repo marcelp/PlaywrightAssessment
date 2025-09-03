@@ -1,0 +1,50 @@
+name: Playwright Tests
+
+on:
+  push:
+    branches: [ main, CI/CDImplementation ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: '0 0 * * 1-5'  # Run tests at midnight on weekdays
+  workflow_dispatch:  # Allow manual triggering from GitHub UI
+
+jobs:
+  test:
+    name: 'Run Playwright Tests'
+    runs-on: windows-latest  # Using Windows since your development environment is Windows
+    timeout-minutes: 60
+    
+    steps:
+    - uses: actions/checkout@v4
+      
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 18
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Install Playwright Chromium browser only
+      run: npx playwright install chromium --with-deps
+      
+    - name: Run all tests (UI and API) on Chromium only
+      run: npx playwright test --project=chromium
+      env:
+        CI: true
+
+    # Skip the problematic merge-reports command
+    # The monocart reports are already generated during test execution
+      
+    - name: Upload test reports
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: playwright-reports
+        path: |
+          playwright-report/
+          test-results/
+          monocart-report/
+        retention-days: 30

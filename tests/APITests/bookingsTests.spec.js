@@ -43,7 +43,17 @@ test('Update a booking', async ({request}) => {
         data: createBookingData
     });
 
-    const createBookingresponseData = await createBookingresponse.json();
+    // Check if response is valid before proceeding
+    expect(createBookingresponse.status()).toBe(200);
+    
+    let createBookingresponseData;
+    try {
+        createBookingresponseData = await createBookingresponse.json();
+    } catch (error) {
+        console.error("Failed to parse booking response:", await createBookingresponse.text());
+        throw error;
+    }
+    
     const bookingId = createBookingresponseData.bookingid;
 
     expect(createBookingresponse.status()).toBe(200);  
@@ -83,7 +93,17 @@ test('Delete a booking', async ({request}) => {
         data: createBookingData
     });
 
-    const createBookingresponseData = await createBookingresponse.json();
+    // Check if response is valid before proceeding
+    expect(createBookingresponse.status()).toBe(200);
+    
+    let createBookingresponseData;
+    try {
+        createBookingresponseData = await createBookingresponse.json();
+    } catch (error) {
+        console.error("Failed to parse booking response:", await createBookingresponse.text());
+        throw error;
+    }
+    
     const bookingId = createBookingresponseData.bookingid;
 
     expect(createBookingresponse.status()).toBe(200);  
