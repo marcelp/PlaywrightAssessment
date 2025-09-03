@@ -36,7 +36,7 @@ jobs:
     # Skip the problematic merge-reports command
     # The monocart reports are already generated during test execution
       
-    - name: Upload test reports
+    - name: Generate Monocart Report
       if: always()
       uses: actions/upload-artifact@v4
       with:
