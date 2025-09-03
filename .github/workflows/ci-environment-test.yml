@@ -1,0 +1,43 @@
+name: CI Environment Test
+
+on:
+  push:
+    branches: [ CI/CDImplementation ]
+  workflow_dispatch:
+
+jobs:
+  test-environment:
+    name: 'Test CI Environment'
+    runs-on: windows-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+      
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Check Playwright installation
+      run: npx playwright --version
+      
+    - name: List test files
+      run: |
+        dir tests\UITests /b
+        dir tests\APITests /b
+        
+    - name: Create artifact with workspace info
+      run: |
+        mkdir -p report-info
+        echo "Environment verification completed" > report-info/info.txt
+        npm list --depth=0 >> report-info/info.txt
+        
+    - name: Upload info
+      uses: actions/upload-artifact@v3
+      with:
+        name: environment-info
+        path: report-info/
+        retention-days: 1
