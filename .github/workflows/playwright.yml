@@ -30,13 +30,8 @@ jobs:
     - name: Install Playwright Chromium browser only
       run: npx playwright install chromium --with-deps
       
-    - name: Run UI tests (Chromium only)
-      run: npx playwright test tests/UITests/ --project=chromium
-      env:
-        CI: true
-        
-    - name: Run API tests (Chromium only)
-      run: npx playwright test tests/APITests/ --project=chromium
+    - name: Run all tests (UI and API) on Chromium only
+      run: npx playwright test --project=chromium
       env:
         CI: true
 
