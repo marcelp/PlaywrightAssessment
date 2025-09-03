@@ -1,4 +1,4 @@
-import { expect, Page } from "@playwright/test";
+import { expect } from "@playwright/test";
 
 export default class LoginPage {
     static BASE_URL = 'https://www.saucedemo.com';
