@@ -1,8 +1,6 @@
 name: CI Environment Test
 
-on:
-  push:
-    branches: [ CI/CDImplementation ]
+on: 
   workflow_dispatch:
 
 jobs:
