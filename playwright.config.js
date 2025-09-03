@@ -31,8 +31,66 @@ export default defineConfig({
   
   // Test reporter
   reporter: [
-    ['html'],
-    ['list']
+    ['monocart-reporter', {
+      name: "Playwright Assessment Test Report",
+      outputFile: './monocart-report/index.html',
+      
+      // Report styling and branding
+      theme: 'dark', // or 'light'
+      title: 'PlaywrightAssessment Test Results',
+      
+      // Coverage configuration
+      coverage: {
+        // Enable V8 code coverage
+        entryFilter: (entry) => true,
+        sourceFilter: (sourcePath) => {
+          // Include only source files, exclude node_modules and test files
+          return sourcePath.search(/src\/|Pages\/|API\//) !== -1;
+        },
+        ignorePatterns: [
+          '**/node_modules/**', 
+          '**/tests/**', 
+          '**/*.spec.js',
+          '**/test-results/**',
+          '**/playwright-report/**'
+        ]
+      },
+      
+      // Test result features
+      attachments: true,
+      screenshot: true,
+      video: true,
+      trace: true,
+      
+      // Trend comparison (keeps historical data)
+      trend: './monocart-report/trend.json',
+      
+      // Custom columns in the test results
+      columns: [
+        'index',
+        'title',
+        'type',
+        'project',
+        'status',
+        'retry',
+        'duration',
+        'flaky',
+        'tags'
+      ],
+      
+      // Custom visitor for test metadata
+      visitor: (data, metadata, collecting) => {
+        // Add custom metadata or modify test data
+        if (collecting) {
+          data.customMetadata = {
+            environment: process.env.NODE_ENV || 'development',
+            timestamp: new Date().toISOString(),
+            browser: metadata.project || 'unknown'
+          };
+        }
+      }
+    }],
+    ['list'] // Keep list reporter for console output
   ],
 
   // Global test settings
