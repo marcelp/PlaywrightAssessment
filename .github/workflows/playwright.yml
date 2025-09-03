@@ -1,0 +1,56 @@
+name: Playwright Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: '0 0 * * 1-5'  # Run tests at midnight on weekdays
+  workflow_dispatch:  # Allow manual triggering from GitHub UI
+
+jobs:
+  test:
+    name: 'Run Playwright Tests'
+    runs-on: windows-latest  # Using Windows since your development environment is Windows
+    timeout-minutes: 60
+    
+    steps:
+    - uses: actions/checkout@v3
+      
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Install Playwright browsers
+      run: npx playwright install --with-deps
+      
+    - name: Run UI tests
+      run: npm run test:ui
+      env:
+        CI: true
+        
+    - name: Run API tests 
+      run: npm run test:api
+      env:
+        CI: true
+
+    - name: Generate Monocart report
+      if: always()
+      run: npx monocart merge-reports ./monocart-report/index.json ./monocart-report/
+      
+    - name: Upload test reports
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: playwright-reports
+        path: |
+          playwright-report/
+          test-results/
+          monocart-report/
+        retention-days: 30

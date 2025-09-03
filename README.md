@@ -133,14 +133,43 @@ The project uses the following configurations:
 * **Videos**: Retained for failed tests
 * **Traces**: Collected on first retry
 
-## Continuous Integration
+## Continuous Integration/Continuous Deployment
 
-The framework is configured to work optimally in CI environments with:
+This project includes a complete CI/CD pipeline using GitHub Actions for test automation:
 
-* Reduced parallelism on CI to avoid resource contention
-* Automatic retries for flaky tests
-* Headless execution
-* HTML report generation
+### CI Pipeline Features
+
+* **Automated Test Execution**:
+  * Runs on every push to the main branch
+  * Runs on every pull request
+  * Scheduled runs on weeknights
+  * Manual triggering available
+* **Environment Optimizations**:
+  * Reduced parallelism to avoid resource contention
+  * Automatic retries for flaky tests
+  * Headless browser execution
+  * Docker containerization available
+
+### CD Pipeline Features
+
+* **Automated Report Deployment**:
+  * Monocart HTML reports published to GitHub Pages
+  * Test artifacts preserved for analysis
+  * Historical test trends accessible online
+
+### Docker Support
+
+The project includes Docker Compose configuration for containerized testing:
+
+```bash
+# Run all tests in a container
+docker-compose up
+```
+
+### Documentation
+
+For detailed information about the CI/CD implementation:
+* [CI/CD Implementation Guide](./CI_CD_GUIDE.md) - Complete CI/CD setup details
 
 ## Additional Information
 
