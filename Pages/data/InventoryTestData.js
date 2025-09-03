@@ -85,7 +85,7 @@ class InventoryTestData {
     }
 
     /**
-     * Get test item names for cart operations
+     * Get list of items
      */
     static getTestCartItems() {
         return {
