@@ -10,7 +10,7 @@ test('standard_user login test', async ({ page }) => {
   await expect(page.locator('span[data-test="title"]')).toHaveText('Products');
 }); 
 
-test('locked_out_user login test', async ({ page }) => {
+test('locked_out_user login test should throw error', async ({ page }) => {
   const loginPage = new LoginPage(page);
   await loginPage.goToLogin();
   await loginPage.signInWithLockedOutUser();
