@@ -17,10 +17,10 @@ export default class ShoppingCartPage {
         await itemLocator.hover();
         
         // Convert item name to kebab-case format for the data-test attribute        
-        const covertItemName = itemName.toLowerCase().replace(/\s+/g, '-');
+        const covertItemNameToKebabCase = itemName.toLowerCase().replace(/\s+/g, '-');        
         
         // Wait for the remove button to be visible before clicking
-        const removeButton = this.#page.locator(`[data-test="remove-${covertItemName}"]`);        
+        const removeButton = this.#page.locator(`[data-test="remove-${covertItemNameToKebabCase}"]`);        
         await removeButton.click();
     }
 
