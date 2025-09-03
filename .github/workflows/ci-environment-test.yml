@@ -11,10 +11,10 @@ jobs:
     runs-on: windows-latest
     
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       
     - name: Set up Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: 18
 
@@ -31,9 +31,9 @@ jobs:
         
     - name: Create artifact with workspace info
       run: |
-        mkdir -p report-info
-        echo "Environment verification completed" > report-info/info.txt
-        npm list --depth=0 >> report-info/info.txt
+        if (-not (Test-Path -Path "report-info")) { New-Item -Path "report-info" -ItemType Directory }
+        Set-Content -Path "report-info\info.txt" -Value "Environment verification completed"
+        npm list --depth=0 >> report-info\info.txt
         
     - name: Upload info
       uses: actions/upload-artifact@v4
