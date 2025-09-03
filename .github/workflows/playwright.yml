@@ -40,9 +40,13 @@ jobs:
       env:
         CI: true
 
+    - name: Create monocart directory if it doesn't exist
+      if: always()
+      run: if (-not (Test-Path -Path "monocart-report")) { New-Item -Path "monocart-report" -ItemType Directory }
+      
     - name: Generate Monocart report
       if: always()
-      run: npx monocart merge-reports ./monocart-report/
+      run: npx monocart merge-reports ./monocart-report/index.json ./test-results/
       
     - name: Upload test reports
       if: always()
