@@ -174,3 +174,19 @@ For detailed information about the CI/CD implementation:
 ## Additional Information
 
 For more detailed information about the Monocart Reporter implementation, see the [MONOCART_REPORTER_GUIDE.md](./MONOCART_REPORTER_GUIDE.md) file.
+
+## Testing
+
+This project includes comprehensive UI and API test suites built with Playwright.
+
+[![Playwright Tests](https://github.com/marcelp/PlaywrightAssessment/actions/workflows/playwright.yml/badge.svg)](https://github.com/marcelp/PlaywrightAssessment/actions/workflows/playwright.yml)
+
+### Test Coverage
+
+- **UI Tests**: Login flows, inventory management, shopping cart functionality
+- **API Tests**: Booking creation, retrieval, update, and deletion operations
+
+### Test Reports
+
+- [View Latest Test Results in Generate Monocart Report step](https://github.com/marcelp/PlaywrightAssessment/actions)
+
