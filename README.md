@@ -190,3 +190,9 @@ This project includes comprehensive UI and API test suites built with Playwright
 
 - [View Latest Test Results in Generate Monocart Report step](https://github.com/marcelp/PlaywrightAssessment/actions)
 
+### Test Report Screenshot
+
+![Monocart Test Report Dashboard](./docs/images/test-report-screenshot.png)
+
+*Test execution summary showing 31 tests with 29 passing tests (93.5%) and 2 skipped tests. Tests completed in 9.6 seconds.*
+
